@@ -48,11 +48,11 @@ const ExitIntentModal: React.FC<ExitIntentModalProps> = ({
           </div>
           
           <h2 className="text-2xl font-bold text-white mb-2">
-            Não tem tempo de assistir tudo?
+            Sem tempo para assistir ao vídeo agora?
           </h2>
           
           <p className="text-gray-300 mb-8 leading-relaxed">
-            Sem problemas. Se você já conhece nosso método e quer garantir sua vaga agora, clique abaixo.
+            Sabemos que a rotina empresarial é corrida. Se você já entende o poder da alavancagem financeira e quer ir direto aos fatos, pule o vídeo.
           </p>
 
           <button
@@ -62,7 +62,7 @@ const ExitIntentModal: React.FC<ExitIntentModalProps> = ({
             }}
             className="w-full py-4 bg-brand-primary hover:bg-brand-accent text-brand-black font-bold text-lg rounded-lg shadow-glow-blue hover:shadow-glow-cyan transition-all duration-300 transform hover:scale-[1.02]"
           >
-            Pular vídeo e ir para o formulário
+            PULAR VÍDEO E LIBERAR MEU ACESSO
           </button>
         </div>
       </div>

@@ -2,6 +2,7 @@ export interface Lead {
   nome: string;
   email: string;
   telefone: string;
+  capital: string;
 }
 
 export type PageRoute = 'home' | 'thank-you';
@@ -16,11 +17,13 @@ export interface Database {
           nome: string | null;
           email: string | null;
           telefone: string | null;
+          capital: string | null;
         };
         Insert: {
           nome?: string | null;
           email?: string | null;
           telefone?: string | null;
+          capital?: string | null;
         };
       };
     };
