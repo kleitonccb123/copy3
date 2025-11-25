@@ -1,0 +1,30 @@
+name: Deploy via FTP
+
+on:
+  push:
+    branches:
+      # Troque 'main' se você usa outro ramo principal
+      - main
+
+jobs:
+  ftp_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy files to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.3
+        with:
+          # Use os segredos que você acabou de criar
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # O caminho no servidor para onde os arquivos vão (sua pasta public_html)
+          server-dir: public_html/
+          # O caminho local do seu projeto que será enviado (o repositório inteiro)
+          local-dir: ./
+          # Define que os arquivos antigos não usados serão deletados
+          exclude: |
+            .git*
+            .github
