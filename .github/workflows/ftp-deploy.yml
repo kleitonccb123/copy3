@@ -3,8 +3,7 @@ name: Deploy via FTP
 on:
   push:
     branches:
-      # Troque 'main' se você usa outro ramo principal
-      - main
+      - main # Garante que só faça o deploy após o push para 'main'
 
 jobs:
   ftp_deploy:
@@ -13,18 +12,33 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Deploy files to FTP
+      # -----------------------------------
+      # ⬇️ ETAPAS NOVAS DE BUILD ⬇️
+      # -----------------------------------
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a versão LTS mais recente
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Build (Vite)
+        run: npm run build
+      # -----------------------------------
+      # ⬆️ FIM DAS ETAPAS NOVAS DE BUILD ⬆️
+      # -----------------------------------
+
+      - name: Deploy built files to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.3
         with:
-          # Use os segredos que você acabou de criar
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # O caminho no servidor para onde os arquivos vão (sua pasta public_html)
+          # 🚨 MUDANÇA CRUCIAL: A pasta de build do Vite é 'dist' por padrão.
+          local-dir: ./dist/ 
           server-dir: public_html/
-          # O caminho local do seu projeto que será enviado (o repositório inteiro)
-          local-dir: ./
-          # Define que os arquivos antigos não usados serão deletados
           exclude: |
             .git*
             .github
+            node_modules
